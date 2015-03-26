@@ -1,4 +1,5 @@
-var express = require('express');
+var express = require('express'),
+	middlewares = require('./middlewares/admin');
 
 var ExpressServer = function(config){
 
@@ -6,10 +7,13 @@ var ExpressServer = function(config){
 
 	this.server = express();
 
-	//middlewares
+	//middlewares, los recorremos y decimos a express que los use
+	for (middleware in middlewares){
+		this.server.use(middlewares[middleware]);
+	}
 
 	this.server.get('/', function (req, res) {
- 		res.send('Hello World From Node Inspector');
+ 		res.send('Hello World From Node');
 	});
 };
 
